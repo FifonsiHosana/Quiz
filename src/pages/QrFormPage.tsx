@@ -18,7 +18,7 @@ const QrFormPage = () => {
   return (
     <div>
       <div
-        className={`w-screen h-full flex justify-center items-center bg-[#26403D]`}
+        className={`w-screen h-screen flex justify-center items-center bg-[#13201f]`}
       >
         {!submitted ? (
           <form onSubmit={handleQrGenerate} className="flex flex-col gap-5  ">
