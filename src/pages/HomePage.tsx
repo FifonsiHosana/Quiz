@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getCategories, getQuizData } from "../services/triviaApi";
 import { recommendationGenerator } from "../utils/quizUtils";
 import { useCategory, useLoading, useQuizData } from "../hooks";
@@ -7,7 +7,7 @@ import Spinner from "../components/Spinner";
 import CategoryCard from "../components/home/CategoryCard";
 
 const HomePage = () => {
-
+const { sessionId } = useParams<{ sessionId: string }>();
   const navigate = useNavigate();
   const [categories, setCategories] = useState<{ id: number; name: string }[]>(
     [],
