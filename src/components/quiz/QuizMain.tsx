@@ -24,29 +24,49 @@ export const QuizMain = ({ setCurrent, current, score, setScore }: QuizMainProps
     setWrongSelect("");
   };
 
-  const quizDataCopy = useMemo(
-    () =>
-      quizData.map((data: QuizQuestion) => ({
+//   const quizDataCopy = useMemo(
+//     () =>
+//       quizData.map((data: QuizQuestion) => ({
+//         category: data.category,
+//         correct_answer: he.decode(data.correct_answer),
+//         options: shuffler([
+//           he.decode(data.correct_answer),
+//           ...data.incorrect_answers.map((item) => he.decode(item)),
+//         ]),
+//         question: he.decode(data.question),
+//       })),
+//     [quizData],
+//   );
+
+const quizDataCopy = useMemo(
+  () =>
+    quizData.map((data: QuizQuestion) => {
+      const decoded = {
         category: data.category,
         correct_answer: he.decode(data.correct_answer),
-        options: shuffler([
-          he.decode(data.correct_answer),
-          ...data.incorrect_answers.map((item) => he.decode(item)),
-        ]),
+        incorrect_answers: data.incorrect_answers.map((a) => he.decode(a)),
         question: he.decode(data.question),
-      })),
-    [quizData],
-  );
+      };
+      return {
+        ...decoded,
+        options: shuffler([
+          decoded.correct_answer,
+          ...decoded.incorrect_answers,
+        ]),
+      };
+    }),
+  [quizData],
+);
 
   const handleAnswerSelect = (answer: string) => {
     if (showMarkScheme) return;
     const correctAnswer = quizDataCopy[current].correct_answer;
     if (answer === correctAnswer) {
       setScore((prev) => prev + 1);
-      navigator.vibrate(200);
+      navigator.vibrate?.(200);
     } else {
       setWrongSelect(answer);
-      navigator.vibrate([200, 100, 200]);
+      navigator.vibrate?.([200, 100, 200]);
     }
     setShowMarkScheme(true);
   };
