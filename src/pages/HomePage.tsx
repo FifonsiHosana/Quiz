@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCategories, getQuizData } from "../services/triviaApi";
-import { recommendationGenerator, useSessionGuard } from "../utils/quizUtils";
+import { recommendationGenerator } from "../utils/quizUtils";
 import { useCategory, useLoading, useQuizData } from "../hooks";
 import Spinner from "../components/Spinner";
 import CategoryCard from "../components/home/CategoryCard";
 
 const HomePage = () => {
-  const sessionId = useSessionGuard();
 
   const navigate = useNavigate();
   const [categories, setCategories] = useState<{ id: number; name: string }[]>(
