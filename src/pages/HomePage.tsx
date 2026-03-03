@@ -27,6 +27,12 @@ const { sessionId } = useParams<{ sessionId: string }>();
     fetchCategories();
   }, []);
 
+  useEffect(() => {
+    if (sessionId) {
+      localStorage.setItem("QUIZ_TOKEN", sessionId);
+    }
+  }, [sessionId]);
+  
   const handleCategorySelect = async (id: number) => {
     if (!sessionId) return;
     setIsLoading(true);
@@ -56,7 +62,7 @@ const { sessionId } = useParams<{ sessionId: string }>();
   }, [categories]);
 
   return (
-    <div className="bg-[#13201f] h-screen overflow-scroll tracking-wide ">
+    <div className="bg-[#13201f] h-full overflow-scroll tracking-wide ">
       <div className="bg-[#16191A]  mb-5 p-5">
         <p className="text-white font-bold text-3xl text-center uppercase mt-5">
           Choose a category

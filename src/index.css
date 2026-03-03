@@ -5,7 +5,7 @@
   line-height: 1.5;
   font-style: normal;
   font-weight: 500;
-
+--app-height: 100%;
 /* font-family: roc-grotesk, sans-serif;
 font-style: normal;
 font-weight: 400; */
@@ -13,4 +13,8 @@ font-weight: 400; */
   /* font-family: mantinia, serif;
 font-style: normal;
 font-weight: 400; */
+}
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
 }

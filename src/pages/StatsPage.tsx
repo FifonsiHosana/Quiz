@@ -30,7 +30,7 @@ const clearStats = () => {
 
   //games played/completed  arr.length - 1
   return (
-    <div className="bg-[#13201f] h-screen overflow-y-scroll text-amber-600 text-2xl">
+    <div className="bg-[#13201f] h-full overflow-y-scroll text-amber-600 text-2xl">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-amber-200/50 text-xl tracking-[0.2em] mt-10 uppercase text-center">
           Your stats

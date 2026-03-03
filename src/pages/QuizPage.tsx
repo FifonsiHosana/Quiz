@@ -54,7 +54,7 @@ const QuizPage = () => {
   };
 
   return (
-    <div className="bg-[#13201f] h-screen overflow-y-scroll ">
+    <div className="bg-[#13201f] h-full overflow-y-scroll ">
       <div className="p-10 h-full w-full ">
         {quizData.length === 0 ? (
           <Spinner label="Summoning Questions..." />
