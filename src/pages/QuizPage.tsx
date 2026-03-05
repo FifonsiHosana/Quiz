@@ -6,6 +6,7 @@ import QuizResults from "../components/quiz/QuizResults";
 import { useCategory, useLoading, useQuizData } from "../hooks";
 import Spinner from "../components/Spinner";
 import { QuizMain } from "../components/quiz/QuizMain";
+import { useWebHaptics } from "web-haptics/react";
 
 const QuizPage = () => {
   const [current, setCurrent] = useState(() => {
@@ -22,6 +23,8 @@ const QuizPage = () => {
     const stored = localStorage.getItem("score");
     return stored ? (JSON.parse(stored) as number) : 0;
   });
+  const { trigger } = useWebHaptics();
+
 
   useEffect(() => {
     localStorage.setItem("current", JSON.stringify(current));
@@ -31,11 +34,13 @@ const QuizPage = () => {
   }, [score]);
 
   const handleQuizComplete = () => {
+    trigger(200)
     saveScoreToStorage(score);
     localStorage.removeItem("score");
     localStorage.setItem("current", JSON.stringify(0));
     setCurrent(0);
     setScore(0);
+    setQuizData([]);
   };
 
   const handlePlayAgain = async () => {

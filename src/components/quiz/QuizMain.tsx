@@ -5,6 +5,7 @@ import { useQuizData } from "../../hooks";
 import { shuffler, useSessionGuard } from "../../utils/quizUtils";
 import type { QuizMainProps, QuizQuestion } from "../../types/Index";
 import AnswerOption from "./AnswerOptions";
+import { useWebHaptics } from "web-haptics/react";
 
 export const QuizMain = ({ setCurrent, current, score, setScore }: QuizMainProps) => {
   const [showMarkScheme, setShowMarkScheme] = useState(false);
@@ -12,6 +13,8 @@ export const QuizMain = ({ setCurrent, current, score, setScore }: QuizMainProps
   const sessionId = useSessionGuard();
   const navigate = useNavigate();
   const { quizData } = useQuizData();
+  const { trigger } = useWebHaptics();
+
 
   const handleAbandon = () => {
     localStorage.setItem("current", JSON.stringify(0));
@@ -19,6 +22,7 @@ export const QuizMain = ({ setCurrent, current, score, setScore }: QuizMainProps
   };
 
   const handleNext = () => {
+    trigger(200);
     setCurrent((prev) => prev + 1);
     setShowMarkScheme(false);
     setWrongSelect("");
@@ -63,10 +67,12 @@ const quizDataCopy = useMemo(
     const correctAnswer = quizDataCopy[current].correct_answer;
     if (answer === correctAnswer) {
       setScore((prev) => prev + 1);
-      navigator.vibrate?.(200);
+      // navigator.vibrate?.(200);
+      trigger("success");
     } else {
       setWrongSelect(answer);
-      navigator.vibrate?.([200, 100, 200]);
+      // navigator.vibrate?.([200, 100, 200]);
+      trigger("error");
     }
     setShowMarkScheme(true);
   };

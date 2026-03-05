@@ -5,8 +5,10 @@ import { recommendationGenerator } from "../utils/quizUtils";
 import { useCategory, useLoading, useQuizData } from "../hooks";
 import Spinner from "../components/Spinner";
 import CategoryCard from "../components/home/CategoryCard";
+import { useWebHaptics } from "web-haptics/react";
 
 const HomePage = () => {
+  const { trigger } = useWebHaptics();
 const { sessionId } = useParams<{ sessionId: string }>();
   const navigate = useNavigate();
   const [categories, setCategories] = useState<{ id: number; name: string }[]>(
@@ -35,6 +37,7 @@ const { sessionId } = useParams<{ sessionId: string }>();
   
   const handleCategorySelect = async (id: number) => {
     if (!sessionId) return;
+    trigger(200)
     setIsLoading(true);
     setQuizData([]);
     try {
